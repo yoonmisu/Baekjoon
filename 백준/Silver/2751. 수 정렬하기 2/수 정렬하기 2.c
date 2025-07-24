@@ -1,43 +1,34 @@
 #include <stdio.h>
 #include <string.h>
-
 int a[1000000], temp[1000000];
-char output[12 * 1000000]; // 최대 11자리 + 개행 × 100만 개
-int out_idx = 0;
+char result[12 * 1000000];
+int outindex = 0;
 
-void merge_sort(int s, int e) {
-    if (s >= e) return;
-    int m = (s + e) / 2;
-    merge_sort(s, m);
-    merge_sort(m + 1, e);
-
-    int i = s, j = m + 1, k = s;
-    while (i <= m && j <= e) {
+void merge_sort(int start, int end) {
+    if (start >= end) return;
+    int mid = (start + end) / 2;
+    merge_sort(start, mid);
+    merge_sort(mid + 1, end);
+    int i = start, j = mid + 1, k = start;
+    while (i <= mid && j <= end) {
         if (a[i] < a[j]) temp[k++] = a[i++];
         else temp[k++] = a[j++];
     }
-    while (i <= m) temp[k++] = a[i++];
-    while (j <= e) temp[k++] = a[j++];
-    for (int t = s; t <= e; t++) a[t] = temp[t];
+    while (i <= mid) temp[k++] = a[i++];
+    while (j <= end) temp[k++] = a[j++];
+    for (int t = start; t <= end; t++) a[t] = temp[t];
 }
 
 int main() {
     int n;
     scanf("%d", &n);
-    
     for (int i = 0; i < n; i++) {
         scanf("%d", &a[i]);
     }
-
     merge_sort(0, n - 1);
-
     for (int i = 0; i < n; i++) {
-        // 숫자를 문자열로 만들어서 output 배열에 모아두기
-        out_idx += sprintf(output + out_idx, "%d\n", a[i]);
+        outindex += sprintf(result + outindex, "%d\n", a[i]);
     }
-
-    // 한 번에 출력!
-    printf("%s", output);
-
+    printf("%s", result);
     return 0;
 }
