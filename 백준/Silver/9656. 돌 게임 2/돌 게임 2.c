@@ -1,14 +1,11 @@
 #include <stdio.h>
-
 int main() {
-    int N;
-    scanf("%d", &N);
-
-    if (N % 2 == 0) {
+    int n;
+    scanf("%d", &n);
+    if (n % 2 == 0) {
         printf("SK\n");
     } else {
         printf("CY\n");
     }
-
     return 0;
 }
